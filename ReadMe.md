@@ -1,4 +1,3 @@
-
 # Go Learning Journey
 
 ## Plan
@@ -11,9 +10,8 @@
 
 ### Go Tour Sections
 
-- [X] Basics-1
-- [ ] 
-
+- [X] Basics-08-19
+- [X] Basics-08-22
 
 ### Projects
 

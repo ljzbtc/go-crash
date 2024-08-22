@@ -1,7 +1,6 @@
+# Go Language Basic Concepts Notes
 
-# Basic
-
-## 1. Exported Names
+## 1. Packages and Exporting
 
 - Names starting with a capital letter are exported
 - Only exported names can be referenced from outside the package
@@ -9,50 +8,66 @@
 ## 2. Functions
 
 - For consecutive parameters of the same type, the type can be omitted for all but the last parameter
+- Can have named return values
 
 ## 3. Variables
 
 - Declared using `var`, with the type at the end
 - Can be declared at package or function level
-- Can have named return values
 - Can include initializers in the declaration, allowing type to be omitted
-
-## 4. Short Variable Declarations
-
-- `:=` can be used for short variable declarations within functions
+- Short variable declarations using `:=` within functions
 - Outside functions, each statement must begin with a keyword
 
-## 5. Basic Types
+## 4. Basic Types
 
 - Include bool, string, various int and uint, byte, rune, float, complex
 
-## 6. Zero Values
+## 5. Zero Values
 
 - Variables declared without an initial value are given their zero value
 
-## 7. Type Conversions
+## 6. Type Conversions
 
 - Use `T(v)` syntax for explicit type conversion
 
-## 8. Type Inference
+## 7. Type Inference
 
 - When using `:=` or `var =`, type can be inferred from the right-hand side value
 
-## 9. Constants
+## 8. Constants
 
 - Declared using the `const` keyword
 - Cannot be declared using `:=` syntax
-
-## 10. Numeric Constants
-
-- High-precision values
+- Numeric constants are high-precision values
 - Untyped constants take the type needed by their context
 
-## 11. For Loops
+## 9. Control Structures
 
+### For Loops
 - Go has only one looping construct: the for loop
 - Basic syntax: `for initialization; condition; post { }`
 - Initialization and post statements are optional
 - Can simulate while loops: `for condition { }`
 
-This summary covers the basic concepts and syntactic features of Go, providing a concise overview for beginners.
+### If Statements
+- Expression doesn't need parentheses, but braces are required
+- Can execute a short statement before the condition
+- Variables declared in the if statement are also available in any else blocks
+
+### Switch Statements
+- A concise way to write if-else chains
+- Only runs the selected case, no break needed
+- Cases don't need to be constants or integers
+- Switch without a condition is the same as `switch true`
+
+## 10. Defer
+
+- A defer statement defers the execution of a function until the surrounding function returns
+- Arguments to the deferred function are evaluated immediately
+- Multiple defer statements are executed in last-in-first-out (LIFO) order
+
+## 11. Additional Notes
+
+- Go language emphasizes simplicity and practicality
+- Many features (like defer) reflect Go's unique design philosophy
+- Understanding these basic concepts is crucial for mastering Go programming
