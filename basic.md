@@ -1,31 +1,51 @@
 # Go Language Basic Concepts
+
 ## 1. Packages and Exporting
+
 - Capitalized names are exported
 - Only exported names are accessible from outside the package
+
 ## 2. Functions
+
 - Can have named return values
 - Type can be omitted for consecutive parameters of the same type
+
 ## 3. Variables
+
 - Declared using `var`, type at the end
 - Short declaration `:=` within functions
 - Example: `var x int` or `x := 5`
+
 ## 4. Basic Types
+
 - bool, string, int, uint, byte, rune, float, complex
+
 ## 5. Zero Values
+
 - Variables without initial value get their zero value
+
 ## 6. Type Conversions
+
 - Syntax: `T(v)`
+
 ## 7. Constants
+
 - Declared using `const`
 - Cannot use `:=` syntax
+
 ## 8. Control Structures
+
 - For loop: `for i := 0; i < 10; i++ { }`
 - If with short statement: `if v := x; v < 10 { }`
 - Switch: Cases don't need to be constants or integers
+
 ## 9. Defer
+
 - Defers execution until surrounding function returns
 - Multiple defers executed in LIFO order
+
 ## 10. Pointers
+
 - `&` generates a pointer, `*` dereferences
 - Example:
   ```go
@@ -33,7 +53,9 @@
   p := &i
   *p = 21
   ```
+
 ## 11. Structs
+
 - Example:
   ```go
   type Vertex struct {
@@ -41,16 +63,24 @@
   }
   v := Vertex{1, 2}
   ```
+
 ## 12. Arrays
+
 - Fixed size
 - Example: `var a [10]int`
+
 ## 13. Slices
+
 - Dynamic size, flexible view into arrays
 - Example: `a[low : high]`
 - Length and capacity: `len(s)` and `cap(s)`
+
 ## 14. Creating slices with make
+
 - Example: `a := make([]int, 5)`
+
 ## 15. Slices of slices
+
 - Example:
   ```go
   board := [][]string{
@@ -59,23 +89,34 @@
       []string{"_", "_", "_"},
   }
   ```
+
 ## 16. Appending to a slice
+
 - Use `append` function
 - Example: `s = append(s, 2, 3, 4)`
+
 ## 17. Range
+
 The `range` form of the `for` loop iterates over a slice or map.
 When ranging over a slice, two values are returned for each iteration. The first is the index, and the second is a copy of the element at that index.
+
 ## 18. Range continued
+
 You can skip the index or value by assigning to `_`.
+
 ```
 for i, _ := range pow
 for _, value := range pow
 ```
+
 If you only want the index, you can omit the second variable.
+
 ```
 for i := range pow
 ```
+
 ## 19. Pic Function Example
+
 ```go
 package main
 
@@ -100,3 +141,78 @@ func main() {
 ```
 
 This example demonstrates the use of slices, range loops, and function passing in Go, creating a simple image generation function.
+
+
+## 20. Maps
+
+A map maps keys to values.
+
+The zero value of a map is `nil`. A `nil` map has no keys, nor can keys be added.
+
+The `make` function returns a map of the given type, initialized and ready for use.
+
+## 21. Map literals
+
+Map literals are like struct literals, but the keys are required.
+
+## 22. Mutating Maps
+
+Insert or update an element in map `m`:
+
+```
+m[key] = elem
+```
+
+Retrieve an element:
+
+```
+elem = m[key]
+```
+
+Delete an element:
+
+```
+delete(m, key)
+```
+
+Test that a key is present with a two-value assignment:
+
+```
+elem, ok = m[key]
+```
+
+If `key` is in `m`, `ok` is `true`. If not, `ok` is `false`.
+
+If `key` is not in the map, then `elem` is the zero value for the map's element type.
+
+Note: If `elem` or `ok` have not yet been declared you could use a short declaration form:
+
+```
+elem, ok := m[key]
+```
+
+## 23. WordCount Function Example
+
+```go
+func WordCount(s string) map[string]int {
+    wordMap := make(map[string]int)
+    slice_index := 0
+    elem := 0
+    for index, value := range s {
+        if value == ' ' {
+            key := s[slice_index:index]
+            key = strings.TrimSpace(key)
+            elem, _ = wordMap[key]
+            wordMap[key] = 1 + elem
+            slice_index = index
+        } else if index == len(s)-1 {
+            key := s[slice_index+1 : index+1]
+            elem, _ = wordMap[key]
+            wordMap[key] = 1 + elem
+        }
+    }
+    return wordMap
+}
+```
+
+This example demonstrates the use of maps, string handling, and range loops to count word frequencies in Go.
