@@ -1,4 +1,3 @@
-
 # Go Language Basic Concepts
 
 ## 1. Packages and Exporting
@@ -296,3 +295,29 @@ func fibonacci() func() int {
   v.Scale(2)
   fmt.Println(v.Abs())  // Output: 10
   ```
+
+## 33. Interfaces
+
+- An interface type is defined as a set of method signatures.
+- A value of interface type can hold any value that implements those methods.
+
+## 34. Implicit Interface Implementation
+
+- A type implements an interface by implementing its methods.
+- No explicit declaration of intent, no "implements" keyword.
+- Implicit interfaces decouple the definition of an interface from its implementation, which could then appear in any package without prearrangement.
+
+## 35. Interface Values
+
+- Under the hood, interface values can be thought of as a tuple of a value and a concrete type:
+  ```
+  (value, type)
+  ```
+- An interface value holds a value of a specific underlying concrete type.
+- Calling a method on an interface value executes the method of the same name on its underlying type.
+
+## 36. Interface Values with Nil Underlying Values
+
+- If the concrete value inside the interface itself is nil, the method will be called with a nil receiver.
+- In some languages this would trigger a null pointer exception, but in Go it is common to write methods that gracefully handle being called with a nil receiver.
+- Note that an interface value that holds a nil concrete value is itself non-nil.
