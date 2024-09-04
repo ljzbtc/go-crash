@@ -19,6 +19,7 @@
 - [X] Basics-08-30
 - [X] Basics-09-01
 - [X] Basics-09-03
+- [X] Basics-09-04
 
 ### Projects
 
