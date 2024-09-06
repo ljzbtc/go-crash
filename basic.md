@@ -616,4 +616,53 @@ func main() {
   }
   ```
 
-These features collectively contribute to Go's strengths in concurrent programming, type safety, and code reusability.
+
+## 52. Equivalent Binary Trees Exercise
+
+- Implement `Walk` function: Traverse the tree, sending values to a channel.
+- Implement `Same` function: Use `Walk` to determine if two trees store the same values.
+- Key points: Recursive traversal, using channels, concurrent comparison.
+
+## 53. sync.Mutex
+
+- Purpose: Ensure only one goroutine accesses a variable at a time.
+- Methods: `Lock()` and `Unlock()`
+- Usage: Surround critical sections with `Lock()` and `Unlock()`
+- Tip: Use `defer` to ensure unlocking.
+
+## 54. Concurrent Web Crawler Exercise
+
+Objective: Modify `Crawl` function to fetch URLs in parallel without duplicates.
+
+Key implementation points:
+
+```go
+type SafeCache struct {
+    mu    sync.Mutex
+    cache map[string]bool
+}
+
+func Crawl(url string, depth int, fetcher Fetcher, cache *SafeCache, wg *sync.WaitGroup) {
+    defer wg.Done()
+    if depth <= 0 || cache.Check(url) {
+        return
+    }
+    // Fetch URL...
+    for _, u := range urls {
+        wg.Add(1)
+        go Crawl(u, depth-1, fetcher, cache, wg)
+    }
+}
+
+func main() {
+    cache := &SafeCache{cache: make(map[string]bool)}
+    var wg sync.WaitGroup
+    wg.Add(1)
+    go Crawl("https://golang.org/", 4, fetcher, cache, &wg)
+    wg.Wait()
+}
+```
+
+- Use `SafeCache` with `sync.Mutex` for thread-safe URL caching
+- Implement concurrent crawling with goroutines
+- Use `sync.WaitGroup` to wait for all goroutines to finish
